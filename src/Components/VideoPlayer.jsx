@@ -17,7 +17,7 @@ const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPlaylistItems = async () => {
-      const apiKey = import.meta.env.VITE_YT_KEY; // Replace with your YouTube API key
+      const apiKey = import.meta.env.VITEYTKEY; // Replace with your YouTube API key
 
       try {
         const response = await axios.get('https://youtube.googleapis.com/youtube/v3/playlistItems', {
