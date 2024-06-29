@@ -23,7 +23,7 @@ const SearchBar = ({ onSearch }) => {
           <select
             value={searchType}
             onChange={(e) => setSearchType(e.target.value)}
-            className="appearance-none bg-transparent border-none text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            className="dropdown"
           >
             <option value="video">Video</option>
             <option value="playlist">Playlist</option>

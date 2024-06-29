@@ -26,6 +26,7 @@ export function Navbar() {
   return (
     <div className="App">
       <div className="navbar bg-base-300">
+        <img src="src/assets/Designer.jpeg" alt="logo" className="w-10 h-10 rounded" />
         <button
           className="btn btn-ghost text-xl"
           onClick={() => (window.location.href = "/")}
