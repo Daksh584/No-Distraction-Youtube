@@ -43,8 +43,12 @@ export function SearchResults() {
     navigate(`/results?q=${searchQuery}&type=${searchType}`);
   };
 
-  const handleVideoClick = (videoId) => {
-    navigate(`/video/${videoId}`);
+  const handleItemClick = (item) => {
+    if (item.id.kind === 'youtube#video') {
+      navigate(`/video/${item.id.videoId}`);
+    } else if (item.id.kind === 'youtube#playlist') {
+      navigate(`/playlist/${item.id.playlistId}`);
+    }
   };
 
   return (
@@ -53,11 +57,14 @@ export function SearchResults() {
       {error && <p className="text-red-500">{error}</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
         {videos.map((video) => (
-          <div key={video.id.videoId || video.id.playlistId} className="mb-4 cursor-pointer" onClick={() => handleVideoClick(video.id.videoId || video.id.playlistId)}>
+            <div className='avatar'>
+                <div className='w-100 rounded'>
+          <div key={video.id.videoId || video.id.playlistId} className="mb-4 cursor-pointer" onClick={() => handleItemClick(video)}>
             <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className="w-full h-auto" />
             <h3 className="text-lg font-semibold mt-2">{video.snippet.title}</h3>
             <p className="text-gray-600">{video.snippet.channelTitle}</p>
           </div>
+          </div></div>
         ))}
       </div>
     </div>

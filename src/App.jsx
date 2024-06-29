@@ -4,6 +4,7 @@ import {Navbar} from './Components/Navbar';
 import {SearchPage} from './Components/SearchPage';
 import {SearchResults} from './Components/SearchResult';
 import VideoPlayerPage from './Components/VideoPlayerPage';
+import {PlaylistPage} from './Components/Playlist';
 
 const App = () => {
   return (
@@ -14,7 +15,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<SearchPage />} />
             <Route path="/results" element={<SearchResults />} />
-            <Route path ="/video/:videoId" element={<VideoPlayerPage />} />
+            <Route path="/playlist/:playlistId" element={<PlaylistPage />} />
+            <Route path ="/video/:videoId/:playlistId" element={<VideoPlayerPage />} />
+            <Route path ="/video/:videoId"  element={<VideoPlayerPage />} />
           </Routes>
         </div>
       </div>
