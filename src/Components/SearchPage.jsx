@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
+import Business from './Business';
 
 export function SearchPage() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export function SearchPage() {
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
+      <Business />
     </div>
   );
 }
