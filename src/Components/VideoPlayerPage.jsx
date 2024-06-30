@@ -6,7 +6,6 @@ import Chatbot from './Chatbot';
 const VideoPlayerPage = () => {
   const { videoId, playlistId } = useParams();
   const [videoTitle, setVideoTitle] = useState('');
-  const [captions, setCaptions] = useState('');
   const apiKey = import.meta.env.VITE_YT_KEY;
 
   // Fetch video title and captions (transcript)
@@ -19,16 +18,8 @@ const VideoPlayerPage = () => {
         if (titleData.items && titleData.items.length > 0) {
           setVideoTitle(titleData.items[0].snippet.title);
         }
-
-        // Fetch captions (transcript)
-        const captionsResponse = await fetch(`https://www.googleapis.com/youtube/v3/captions?part=snippet&videoId=${videoId}&key=${apiKey}`);
-        const captionsData = await captionsResponse.json();
-        if (captionsData.items && captionsData.items.length > 0) {
-          const captionId = captionsData.items[0].id;
-          const transcriptResponse = await fetch(`https://www.googleapis.com/youtube/v3/captions/${captionId}?key=${apiKey}`);
-          const transcriptData = await transcriptResponse.text();
-          setCaptions(transcriptData);
-        }
+        
+        
       } catch (error) {
         console.error('Error fetching video details:', error);
       }
@@ -47,7 +38,7 @@ const VideoPlayerPage = () => {
       </div>
       <div className="w-full mt-4">
         {/* Full-width Chatbot below VideoPlayer */}
-        <Chatbot videoLink={videoLink} videoTitle={videoTitle} videoTranscript={captions} />
+        <Chatbot videoLink={videoLink} videoTitle={videoTitle}/>
       </div>
     </div>
   );
