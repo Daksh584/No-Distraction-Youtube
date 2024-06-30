@@ -51,13 +51,13 @@ const Business = () => {
   return (
     <section id='features' className={layout.section}>
       <div className={layout.sectionInfo}>
-      <h2 className={`text-blue-900 ${styles.heading2}`} style={{ color: 'inherit' }}>
+      <h2 className={`text-blue-900 ${styles.heading2}  pl-10`} style={{ color: 'inherit' }}>
       You Study, <br className='sm:block hidden'/> we'll handle the Distractions 😎
     </h2>        
-    <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+    <p className={`${styles.paragraph} max-w-[470px] mt-5 pl-10`}>
     Welcome to EduTube, where YouTube meets focus. Experience a clutter-free environment designed for uninterrupted learning and enjoyment.
         </p>
-        <Button styles='mt-10'/>
+        <Button styles='mt-10  pl-10'/>
       </div>
       <div className={`${layout.sectionImg} flex-col`}  >
         {features.map((feature, index) => (

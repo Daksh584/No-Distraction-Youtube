@@ -16,6 +16,7 @@ const SearchBar = ({ onSearch }) => {
           <input
             className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none focus:border-blue-500"
             type="text"
+            style = {{color: 'inherit'}}
             placeholder="Search YouTube"
             value={query}
             onChange={(e) => setQuery(e.target.value)}

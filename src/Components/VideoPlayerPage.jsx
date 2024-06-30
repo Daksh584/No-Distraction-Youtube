@@ -18,8 +18,6 @@ const VideoPlayerPage = () => {
         if (titleData.items && titleData.items.length > 0) {
           setVideoTitle(titleData.items[0].snippet.title);
         }
-        
-        
       } catch (error) {
         console.error('Error fetching video details:', error);
       }
@@ -31,8 +29,8 @@ const VideoPlayerPage = () => {
   const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
   return (
-    <div className="container mx-auto mt-10">
-      <div className="relative" style={{ paddingBottom: '40%', height: 0 }}>
+    <div className="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+      <div className="relative pb-16/9">
         {/* Aspect ratio container for VideoPlayer */}
         <VideoPlayer videoId={videoId} playlistId={playlistId} />
       </div>
