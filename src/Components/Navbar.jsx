@@ -2,25 +2,23 @@ import React, { useEffect, useState } from "react";
 
 export function Navbar() {
   const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "lemonade"
   );
 
-  const element = document.documentElement;
-
   useEffect(() => {
+    const element = document.documentElement;
+
     if (theme === "dark") {
-      element.classList.add("dark");
+      element.setAttribute("data-theme", "dark");
       localStorage.setItem("theme", "dark");
-      document.body.classList.add("dark");
     } else {
-      element.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      document.body.classList.remove("dark");
+      element.setAttribute("data-theme", "lemonade");
+      localStorage.setItem("theme", "lemonade");
     }
   }, [theme]);
 
   const handleToggle = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(theme === "dark" ? "lemonade" : "dark");
   };
 
   return (
