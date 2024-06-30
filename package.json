@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@codesweetly/react-youtube-playlist": "^2.0.0",
+    "@google/generative-ai": "^0.14.0",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
