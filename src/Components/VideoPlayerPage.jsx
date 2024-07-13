@@ -21,7 +21,7 @@ const VideoPlayerPage = () => {
         }
 
         // Fetch video transcript
-        const transcriptResponse = await fetch(`http://localhost:5000/${videoId}`);
+        const transcriptResponse = await fetch(`https://no-distraction-youtube-tbm2.vercel.app/${videoId}`);
         const transcriptData = await transcriptResponse.json();
         if (!transcriptData.error) {
           const transcriptText = transcriptData.map(item => item.text).join(' ');
