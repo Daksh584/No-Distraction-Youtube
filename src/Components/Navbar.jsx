@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export function Navbar() {
   const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "lemonade"
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
   useEffect(() => {
@@ -12,13 +12,13 @@ export function Navbar() {
       element.setAttribute("data-theme", "dark");
       localStorage.setItem("theme", "dark");
     } else {
-      element.setAttribute("data-theme", "lemonade");
-      localStorage.setItem("theme", "lemonade");
+      element.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
     }
   }, [theme]);
 
   const handleToggle = () => {
-    setTheme(theme === "dark" ? "lemonade" : "dark");
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (

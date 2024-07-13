@@ -6,6 +6,7 @@ import Chatbot from './Chatbot';
 const VideoPlayerPage = () => {
   const { videoId, playlistId } = useParams();
   const [videoTitle, setVideoTitle] = useState('');
+  const [transcript, setTranscript] = useState('');
   const apiKey = import.meta.env.VITE_YT_KEY;
 
   // Fetch video title and captions (transcript)
@@ -18,14 +19,24 @@ const VideoPlayerPage = () => {
         if (titleData.items && titleData.items.length > 0) {
           setVideoTitle(titleData.items[0].snippet.title);
         }
+
+        // Fetch video transcript
+        const transcriptResponse = await fetch(`http://localhost:5000/${videoId}`);
+        const transcriptData = await transcriptResponse.json();
+        if (!transcriptData.error) {
+          const transcriptText = transcriptData.map(item => item.text).join(' ');
+          setTranscript(transcriptText);
+        } else {
+          console.error('Error fetching transcript:', transcriptData.error);
+        }
       } catch (error) {
-        console.error('Error fetching video details:', error);
+        console.error('Error fetching video details or transcript:', error);
       }
     };
 
     fetchVideoDetails();
-  }, [videoId]);
-
+  }, [videoId, apiKey]);
+  // console.log('Transcript:', transcript);
   const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
   return (
@@ -36,7 +47,7 @@ const VideoPlayerPage = () => {
       </div>
       <div className="w-full mt-4">
         {/* Full-width Chatbot below VideoPlayer */}
-        <Chatbot videoLink={videoLink} videoTitle={videoTitle}/>
+        <Chatbot videoLink={videoLink} videoTitle={videoTitle} videoTranscript={transcript} />
       </div>
     </div>
   );

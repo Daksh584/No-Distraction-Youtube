@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const Chatbot = ({ videoLink, videoTitle }) => {
+const Chatbot = ({ videoLink, videoTitle, videoTranscript }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
@@ -12,7 +12,6 @@ const Chatbot = ({ videoLink, videoTitle }) => {
 
       try {
         const GOOGLEAPI = import.meta.env.VITE_GOOGLEAPI;
-        console.log(GOOGLEAPI);
         const genAI = new GoogleGenerativeAI(GOOGLEAPI);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
@@ -30,7 +29,7 @@ const Chatbot = ({ videoLink, videoTitle }) => {
             {
               role: "user",
               parts: [
-                { text: `Video link: ${videoLink}, Video title: ${videoTitle}` },
+                { text: `Video link: ${videoLink}, Video title: ${videoTitle}, Video transcript: ${videoTranscript}` },
                 { text: input },
               ],
             },
@@ -38,6 +37,7 @@ const Chatbot = ({ videoLink, videoTitle }) => {
         });
 
         const result = await chatSession.sendMessage(input);
+        
         const responseText = result.response.text();
         const aiMessage = { sender: 'ai', text: responseText };
 
@@ -47,7 +47,7 @@ const Chatbot = ({ videoLink, videoTitle }) => {
         const errorMessage = { sender: 'ai', text: 'Failed to fetch AI response.' };
         setMessages((prevMessages) => [...prevMessages, errorMessage]);
       }
-
+      
       setInput('');
     }
   };
