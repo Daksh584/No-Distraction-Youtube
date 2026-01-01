@@ -52,20 +52,35 @@ export function SearchResults() {
   };
 
   return (
-    <div>
+    <div className="animate-fade-in min-h-screen pb-12">
       <SearchBar onSearch={handleSearch} />
-      {error && <p className="text-red-500">{error}</p>}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
-        {videos.map((video) => (
-            <div className='avatar'>
-                <div className='w-100 rounded'>
-          <div key={video.id.videoId || video.id.playlistId} className="mb-4 cursor-pointer" onClick={() => handleItemClick(video)}>
-            <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className="w-full h-auto" />
-            <h3 className="text-lg font-semibold mt-2">{video.snippet.title}</h3>
-            <p className="text-gray-600">{video.snippet.channelTitle}</p>
-          </div>
-          </div></div>
-        ))}
+      {error && <p className="text-red-500 text-center mt-4 font-semibold">{error}</p>}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
+          {videos.map((video, index) => (
+            <div
+              key={video.id.videoId || video.id.playlistId}
+              className={`glass rounded-2xl overflow-hidden cursor-pointer hover-lift transition-all duration-300 animate-slide-up stagger-${(index % 4) + 1}`}
+              onClick={() => handleItemClick(video)}
+            >
+              <div className="relative overflow-hidden">
+                <img
+                  src={video.snippet.thumbnails.medium.url}
+                  alt={video.snippet.title}
+                  className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-poppins font-semibold text-base line-clamp-2 mb-2 text-base-content">
+                  {video.snippet.title}
+                </h3>
+                <p className="font-sans text-sm text-base-content/60">
+                  {video.snippet.channelTitle}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

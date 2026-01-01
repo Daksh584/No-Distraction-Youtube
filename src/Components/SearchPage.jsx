@@ -11,7 +11,7 @@ export function SearchPage() {
   };
 
   return (
-    <div>
+    <div className="animate-fade-in min-h-screen">
       <SearchBar onSearch={handleSearch} />
       <Business />
     </div>
