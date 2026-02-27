@@ -13,16 +13,18 @@ export function SearchResults() {
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const apiKey = import.meta.env.VITE_YT_KEY; // Replace with your YouTube API key
+      const user = JSON.parse(localStorage.getItem("user"));
 
       try {
         const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
           params: {
             q: query,
             part: 'snippet',
-            key: apiKey,
             type: searchType,
             maxResults: 20,
+          },
+          headers: {
+            Authorization: `Bearer ${user?.access_token}`,
           },
         });
         console.log(response.data.items);

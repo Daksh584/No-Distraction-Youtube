@@ -13,7 +13,7 @@ const Chatbot = ({ videoLink, videoTitle, videoTranscript }) => {
       try {
         const GOOGLEAPI = import.meta.env.VITE_GOOGLEAPI;
         const genAI = new GoogleGenerativeAI(GOOGLEAPI);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+        const model = genAI.getGenerativeModel({ model: "Gemini 2.5 Flash-Lite Preview 06-17" });
 
         const generationConfig = {
           temperature: 1,
