@@ -1,0 +1,32 @@
+services:
+  # Node.js Server
+  - type: web
+    name: edutube-node-server
+    env: node
+    rootDir: Backend/server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.10.0
+      - key: PORT
+        value: 5001
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: NOTION_CLIENT_ID
+        sync: false
+      - key: NOTION_CLIENT_SECRET
+        sync: false
+
+  # Python Flask Server
+  - type: web
+    name: edutube-python-server
+    env: python
+    rootDir: Backend/flask-server
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -b 0.0.0.0:$PORT server:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12

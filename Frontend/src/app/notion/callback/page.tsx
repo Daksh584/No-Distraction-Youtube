@@ -6,7 +6,9 @@ import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
 
-export default function NotionCallbackPage() {
+import { Suspense } from "react";
+
+function NotionCallbackContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [status, setStatus] = useState<"loading" | "success" | "error">(
@@ -153,5 +155,17 @@ export default function NotionCallbackPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function NotionCallbackPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-16 h-16 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    }>
+      <NotionCallbackContent />
+    </Suspense>
   );
 }
