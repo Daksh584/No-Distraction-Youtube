@@ -129,7 +129,8 @@ export default function StudyRoomPage() {
 
     const fetchTranscript = async () => {
       try {
-        const response = await axios.get(`http://localhost:5002/${videoId}`);
+        const FLASK_URL = process.env.NEXT_PUBLIC_FLASK_API_URL || "http://localhost:5002";
+        const response = await axios.get(`${FLASK_URL}/${videoId}`);
         if (response.data && !response.data.error) {
           const transcriptText = response.data
             .map((item: any) => item.text)

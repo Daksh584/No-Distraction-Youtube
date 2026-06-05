@@ -6,7 +6,9 @@ import axios from "axios";
 import SearchBar from "@/components/SearchBar";
 import type { YouTubeSearchItem } from "@/types";
 
-export default function ResultsPage() {
+import { Suspense } from "react";
+
+function ResultsContent() {
   const [videos, setVideos] = useState<YouTubeSearchItem[]>([]);
   const [error, setError] = useState("");
   const searchParams = useSearchParams();
@@ -92,5 +94,20 @@ export default function ResultsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ResultsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex flex-col">
+        <SearchBar onSearch={() => {}} />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      </div>
+    }>
+      <ResultsContent />
+    </Suspense>
   );
 }
