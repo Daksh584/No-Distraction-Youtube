@@ -78,13 +78,13 @@ useEffect(() => {
   const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
   return (
-    <div className="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
-      <div className="relative pb-16/9">
-        {/* Aspect ratio container for VideoPlayer */}
+    <div className="container mx-auto mt-8 px-4 sm:px-6 lg:px-8 animate-fade-in">
+      <div className="glass rounded-3xl p-4 sm:p-6 shadow-xl mb-6 hover-lift">
+        {/* Video Player Container */}
         <VideoPlayer videoId={videoId} playlistId={playlistId} />
       </div>
-      <div className="w-full mt-4">
-        {/* Full-width Chatbot below VideoPlayer */}
+      <div className="w-full">
+        {/* Chatbot below VideoPlayer */}
         <Chatbot videoLink={videoLink} videoTitle={videoTitle} videoTranscript={transcript} />
       </div>
     </div>
