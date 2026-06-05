@@ -1,9 +1,0 @@
-OK 
-
-So 
-
-1 ) Collborative learning Via synicng video and Chatting options 
-2 ) A space Where i can Make notes for a particular video ( with the help Of AI as well)
-3 ) Oauth Session
-4 ) Bookmarks For the Video 
-5 ) 
