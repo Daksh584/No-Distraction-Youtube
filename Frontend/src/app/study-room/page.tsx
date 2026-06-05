@@ -6,7 +6,9 @@ import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
 
-export default function StudyRoomLobby() {
+import { Suspense } from "react";
+
+function StudyRoomLobbyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -304,5 +306,17 @@ export default function StudyRoomLobby() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function StudyRoomLobby() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-16 h-16 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    }>
+      <StudyRoomLobbyContent />
+    </Suspense>
   );
 }
