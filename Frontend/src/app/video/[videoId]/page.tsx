@@ -46,6 +46,21 @@ export default function VideoPage() {
           setVideoTitle(snippet.title);
           setChannelTitle(snippet.channelTitle);
           setDescription(snippet.description);
+          
+          // Save to history
+          const token = localStorage.getItem("token");
+          if (token) {
+            try {
+              const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
+              await axios.post(
+                `${API_URL}/api/history`,
+                { videoId, title: snippet.title, channelTitle: snippet.channelTitle },
+                { headers: { Authorization: `Bearer ${token}` } }
+              );
+            } catch (err) {
+              console.error("Failed to save history", err);
+            }
+          }
         }
       } catch (error) {
         console.error("Error fetching video details:", error);

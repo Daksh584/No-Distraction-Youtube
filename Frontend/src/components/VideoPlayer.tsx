@@ -77,6 +77,9 @@ export default function VideoPlayer({ videoId, playlistId, title, channelTitle, 
               videoId={videoId}
               opts={opts}
               className="w-full h-full"
+              onReady={(e) => {
+                (window as any).__videoPlayer = e.target;
+              }}
             />
           </div>
         </div>

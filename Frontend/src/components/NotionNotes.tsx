@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
 
@@ -30,6 +32,7 @@ export default function NotionNotes({
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
   const [isLoading, setIsLoading] = useState(true);
   const [isCreating, setIsCreating] = useState(false);
+  const [isPreview, setIsPreview] = useState(false);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -184,6 +187,30 @@ export default function NotionNotes({
       window.location.href = response.data.authUrl;
     } catch (error) {
       console.error("Error getting Notion auth URL:", error);
+    }
+  };
+
+  // Time conversion helpers
+  const formatTime = (seconds: number) => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    if (h > 0) return `${h}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  };
+
+  const timeToSeconds = (timeStr: string) => {
+    const parts = timeStr.split(":").map(Number);
+    if (parts.length === 2) return parts[0] * 60 + parts[1];
+    if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+    return 0;
+  };
+
+  const handleInsertTimestamp = () => {
+    const player = (window as any).__videoPlayer || (window as any).__syncedPlayer;
+    if (player && player.getCurrentTime) {
+      const time = formatTime(player.getCurrentTime());
+      insertFormatting(`[${time}] `);
     }
   };
 
@@ -434,6 +461,25 @@ export default function NotionNotes({
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Edit/Preview Toggle */}
+          <div className="bg-base-200/50 p-1 rounded-lg flex items-center">
+            <button
+              onClick={() => setIsPreview(false)}
+              className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
+                !isPreview ? "bg-base-100 shadow-sm text-primary-500" : "text-base-content/60 hover:text-base-content"
+              }`}
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => setIsPreview(true)}
+              className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
+                isPreview ? "bg-base-100 shadow-sm text-primary-500" : "text-base-content/60 hover:text-base-content"
+              }`}
+            >
+              Preview
+            </button>
+          </div>
           {/* Save Status */}
           <div className="flex items-center gap-1.5 text-sm">
             {saveStatus === "saving" && (
@@ -487,8 +533,18 @@ export default function NotionNotes({
         </div>
       </div>
 
-      {/* Toolbar */}
-      <div className="flex items-center gap-1 mb-3 p-2 bg-base-200/50 rounded-xl">
+      {!isPreview && (
+        <>
+          {/* Toolbar */}
+          <div className="flex items-center gap-1 mb-3 p-2 bg-base-200/50 rounded-xl overflow-x-auto">
+            <button
+              onClick={handleInsertTimestamp}
+              className="btn btn-xs btn-primary font-semibold hover-scale transition-all whitespace-nowrap"
+              title="Insert current video time"
+            >
+              ⏱️ Time
+            </button>
+            <div className="divider divider-horizontal mx-0.5 h-5"></div>
         <button
           onClick={() => insertFormatting("**")}
           className="btn btn-xs btn-ghost font-bold hover:bg-base-300 transition-colors"
@@ -581,22 +637,56 @@ export default function NotionNotes({
         </button>
       </div>
 
-      {/* Editor */}
-      <textarea
-        ref={textareaRef}
-        value={content}
-        onChange={(e) => handleContentChange(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Start taking notes... (Markdown supported)"
-        className="w-full min-h-[400px] bg-base-200/30 border-2 border-transparent focus:border-primary-500 focus:shadow-glow rounded-2xl p-4 text-sm font-mono leading-relaxed resize-y transition-all duration-300 outline-none"
-        spellCheck={false}
-      />
+        {/* Editor */}
+        <textarea
+          ref={textareaRef}
+          value={content}
+          onChange={(e) => handleContentChange(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Start taking notes... (Markdown supported)"
+          className="w-full min-h-[400px] bg-base-200/30 border-2 border-transparent focus:border-primary-500 focus:shadow-glow rounded-2xl p-4 text-sm font-mono leading-relaxed resize-y transition-all duration-300 outline-none"
+          spellCheck={false}
+        />
+        
+        {/* Footer hint */}
+        <div className="flex items-center justify-between mt-3 text-xs text-base-content/40">
+          <span>Markdown supported • Auto-saves after 2s of inactivity</span>
+          <span>⌘B Bold • ⌘I Italic • ⌘S Save</span>
+        </div>
+      </>
+      )}
 
-      {/* Footer hint */}
-      <div className="flex items-center justify-between mt-3 text-xs text-base-content/40">
-        <span>Markdown supported • Auto-saves after 2s of inactivity</span>
-        <span>⌘B Bold • ⌘I Italic • ⌘S Save</span>
-      </div>
+      {isPreview && (
+        <div className="w-full min-h-[400px] bg-base-200/30 rounded-2xl p-4 prose prose-sm max-w-none text-base-content overflow-y-auto">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              a({ node, href, children, ...props }) {
+                if (href?.startsWith("#time-")) {
+                  const timeStr = href.replace("#time-", "");
+                  return (
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const player = (window as any).__videoPlayer || (window as any).__syncedPlayer;
+                        if (player && player.seekTo) {
+                          player.seekTo(timeToSeconds(timeStr));
+                        }
+                      }}
+                      className="inline-flex items-center gap-1 bg-primary-500/10 text-primary-600 hover:bg-primary-500/20 px-1.5 py-0.5 rounded text-xs font-semibold font-mono transition-colors border border-primary-500/20"
+                    >
+                      ⏱️ {children}
+                    </button>
+                  );
+                }
+                return <a href={href} {...props} className="text-primary-500 hover:underline">{children}</a>;
+              }
+            }}
+          >
+            {content.replace(/\[(\d{1,2}:\d{2}(?::\d{2})?)\]/g, "[$1](#time-$1)") || "*No content yet*"}
+          </ReactMarkdown>
+        </div>
+      )}
     </div>
   );
 }

@@ -46,6 +46,15 @@ const userSchema = new mongoose.Schema(
       },
       default: new Map(),
     },
+    // Watch History
+    watchHistory: [
+      {
+        videoId: { type: String, required: true },
+        title: { type: String, required: true },
+        channelTitle: { type: String, default: 'Unknown Channel' },
+        watchedAt: { type: Date, default: Date.now }
+      }
+    ]
   },
   {
     timestamps: true,

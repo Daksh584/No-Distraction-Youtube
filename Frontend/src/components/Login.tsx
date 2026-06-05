@@ -81,6 +81,15 @@ export default function Login({ user, setUser }: LoginProps) {
           </span>
         </div>
         <button
+          onClick={() => window.location.href = "/history"}
+          className="btn btn-sm glass text-base-content hover-scale transition-all duration-300 border-base-content/20 gap-1"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span className="hidden sm:inline">History</span>
+        </button>
+        <button
           onClick={handleLogout}
           className="btn btn-sm glass text-base-content hover-scale transition-all duration-300 border-base-content/20"
         >
