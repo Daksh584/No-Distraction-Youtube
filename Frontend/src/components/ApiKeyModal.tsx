@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { getUserApiKey, setUserApiKey, isUsingCustomKey } from "@/utils/apiKey";
 
 export default function ApiKeyModal({
@@ -13,7 +14,12 @@ export default function ApiKeyModal({
   const [apiKey, setApiKey] = useState("");
   const [saved, setSaved] = useState(false);
   const [usingCustom, setUsingCustom] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -34,7 +40,7 @@ export default function ApiKeyModal({
     return () => document.removeEventListener("mousedown", handleClick);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   const handleSave = () => {
     setUserApiKey(apiKey);
@@ -51,7 +57,7 @@ export default function ApiKeyModal({
     setTimeout(() => setSaved(false), 2000);
   };
 
-  return (
+  const modalContent = (
     <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm p-4 overflow-y-auto animate-fade-in">
       <div
         ref={modalRef}
@@ -122,4 +128,6 @@ export default function ApiKeyModal({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
