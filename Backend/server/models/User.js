@@ -54,7 +54,20 @@ const userSchema = new mongoose.Schema(
         channelTitle: { type: String, default: 'Unknown Channel' },
         watchedAt: { type: Date, default: Date.now }
       }
-    ]
+    ],
+    // AI Dashboard Cache
+    aiWelcomeMessage: {
+      type: String,
+      default: null,
+    },
+    aiRecommendations: {
+      type: [String],
+      default: [],
+    },
+    lastAiGeneration: {
+      type: Date,
+      default: null,
+    }
   },
   {
     timestamps: true,

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import SearchBar from "@/components/SearchBar";
 import Business from "@/components/Business";
+import AiDashboard from "@/components/AiDashboard";
 
 export default function HomePage() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function HomePage() {
   return (
     <div className="animate-fade-in min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <AiDashboard />
         <SearchBar onSearch={handleSearch} />
       </div>
 
