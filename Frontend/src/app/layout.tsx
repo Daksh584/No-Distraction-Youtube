@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "EduTube - Distraction-Free YouTube Learning",
   description:
     "Experience YouTube without distractions. AI-powered chatbot, focused learning, and clutter-free video browsing.",
+  icons: {
+    icon: "/Circlelogo.png",
+  },
 };
 
 export default function RootLayout({

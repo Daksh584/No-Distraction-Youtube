@@ -9,6 +9,12 @@
     "default_popup": "popup.html",
     "default_title": "Open in EduTube"
   },
+  "icons": {
+    "16": "logo.png",
+    "32": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  },
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/watch*"],

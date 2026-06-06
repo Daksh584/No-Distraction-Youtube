@@ -34,9 +34,10 @@ export function Navbar() {
     <>
       <div className="flex items-center gap-6 animate-slide-down">
         <button
-          className="btn btn-ghost text-3xl font-poppins font-bold hover-scale transition-all duration-300 px-2"
+          className="btn btn-ghost text-3xl font-poppins font-bold hover-scale transition-all duration-300 px-2 flex items-center gap-3"
           onClick={() => (window.location.href = "/")}
         >
+          <img src="/logo.png" alt="EduTube Logo" className="w-10 h-10 object-contain drop-shadow-md" />
           <span className="gradient-text tracking-tight">EduTube</span>
         </button>
 
