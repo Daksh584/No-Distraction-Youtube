@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>EduTube</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>EduTube</h1>
+        <p>Focus on learning, not algorithms.</p>
+      </div>
+      
+      <div id="video-actions" class="actions">
+        <button id="btn-solo" class="btn primary">
+          <span>Study Solo</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </button>
+        <button id="btn-room" class="btn secondary">
+          <span>Study with Friends</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </button>
+      </div>
+
+      <div id="error-state" class="error hidden">
+        <p>Please open a YouTube video to use EduTube.</p>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

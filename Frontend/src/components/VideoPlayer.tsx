@@ -88,9 +88,23 @@ export default function VideoPlayer({ videoId, playlistId, title, channelTitle, 
         {/* Video Info */}
         {(title || description) && (
           <div className="mt-6 px-1">
-            <h1 className="text-2xl sm:text-3xl font-bold text-base-content mb-2 line-clamp-2">
-              {title}
-            </h1>
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-base-content line-clamp-2 flex-1">
+                {title}
+              </h1>
+              <button
+                onClick={() => router.push(`/study-room?video=${videoId}`)}
+                className="btn bg-base-100 border border-base-content/10 hover:bg-primary-500/10 text-primary-500 shadow-sm gap-2 rounded-xl transition-all flex-shrink-0"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Study Together
+              </button>
+            </div>
             <p className="text-base-content/70 font-semibold mb-4 text-lg">
               {channelTitle}
             </p>

@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "EduTube Integration",
+  "version": "1.0.0",
+  "description": "Watch YouTube videos in EduTube for a distraction-free or collaborative study experience.",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["*://*.youtube.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Open in EduTube"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/watch*"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ]
+}

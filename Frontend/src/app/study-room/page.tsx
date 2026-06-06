@@ -29,6 +29,12 @@ function StudyRoomLobbyContent() {
     if (code) {
       setJoinCode(code.toUpperCase());
     }
+
+    // Auto-fill video URL from Chrome Extension
+    const videoParam = searchParams.get("video");
+    if (videoParam) {
+      setVideoUrl(`https://youtube.com/watch?v=${videoParam}`);
+    }
   }, [searchParams]);
 
   // Extract video ID from YouTube URL

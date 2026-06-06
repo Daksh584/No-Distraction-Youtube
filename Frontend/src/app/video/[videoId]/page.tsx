@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import VideoPlayer from "@/components/VideoPlayer";
 import Chatbot from "@/components/Chatbot";
@@ -12,6 +12,7 @@ import { getYouTubeApiKey } from "@/utils/apiKey";
 
 export default function VideoPage() {
   const params = useParams();
+  const router = useRouter();
   const videoId = params.videoId as string;
   const [videoTitle, setVideoTitle] = useState("");
   const [channelTitle, setChannelTitle] = useState("");
