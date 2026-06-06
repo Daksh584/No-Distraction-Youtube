@@ -52,10 +52,10 @@ export default function ApiKeyModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm p-4 overflow-y-auto animate-fade-in">
       <div
         ref={modalRef}
-        className="glass rounded-2xl p-6 w-full max-w-md mx-4 shadow-lg border border-white/10 animate-scale-in"
+        className="bg-base-100/95 backdrop-blur-2xl rounded-3xl p-6 w-full max-w-md mx-auto my-auto shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-base-content/10 animate-scale-in"
       >
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-poppins font-bold text-lg text-base-content">
