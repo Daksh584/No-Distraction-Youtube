@@ -14,33 +14,33 @@ const config: Config = {
       },
       colors: {
         primary: {
-          50: "hsl(240, 100%, 97%)",
-          100: "hsl(240, 100%, 95%)",
-          200: "hsl(240, 100%, 90%)",
-          300: "hsl(240, 100%, 80%)",
-          400: "hsl(240, 100%, 70%)",
-          500: "hsl(240, 100%, 65%)",
-          600: "hsl(240, 100%, 55%)",
-          700: "hsl(240, 100%, 45%)",
-          800: "hsl(240, 100%, 35%)",
-          900: "hsl(240, 100%, 25%)",
+          50: "hsl(220, 100%, 97%)",
+          100: "hsl(220, 100%, 95%)",
+          200: "hsl(220, 100%, 90%)",
+          300: "hsl(220, 100%, 80%)",
+          400: "hsl(220, 100%, 70%)",
+          500: "hsl(220, 100%, 50%)",
+          600: "hsl(220, 100%, 45%)",
+          700: "hsl(220, 100%, 40%)",
+          800: "hsl(220, 100%, 30%)",
+          900: "hsl(220, 100%, 20%)",
         },
         secondary: {
-          500: "hsl(280, 100%, 65%)",
+          500: "hsl(180, 100%, 40%)",
         },
         accent: {
-          500: "hsl(320, 100%, 65%)",
+          500: "hsl(190, 100%, 45%)",
         },
       },
       backgroundImage: {
         "gradient-primary":
-          "linear-gradient(135deg, hsl(240, 100%, 65%) 0%, hsl(280, 100%, 65%) 100%)",
+          "linear-gradient(135deg, hsl(180, 100%, 40%) 0%, hsl(220, 100%, 50%) 100%)",
         "gradient-secondary":
-          "linear-gradient(135deg, hsl(280, 100%, 65%) 0%, hsl(320, 100%, 65%) 100%)",
+          "linear-gradient(135deg, hsl(190, 100%, 45%) 0%, hsl(230, 100%, 55%) 100%)",
         "gradient-accent":
-          "linear-gradient(135deg, hsl(200, 100%, 60%) 0%, hsl(240, 100%, 65%) 100%)",
+          "linear-gradient(135deg, hsl(170, 100%, 40%) 0%, hsl(200, 100%, 50%) 100%)",
         "gradient-warm":
-          "linear-gradient(135deg, hsl(340, 100%, 65%) 0%, hsl(30, 100%, 65%) 100%)",
+          "linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(240, 100%, 60%) 100%)",
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-out",
@@ -53,8 +53,8 @@ const config: Config = {
         xs: "2px",
       },
       boxShadow: {
-        glow: "0 0 20px rgba(99, 102, 241, 0.4)",
-        "glow-lg": "0 0 30px rgba(139, 92, 246, 0.5)",
+        glow: "0 0 20px rgba(6, 182, 212, 0.4)",
+        "glow-lg": "0 0 30px rgba(59, 130, 246, 0.5)",
       },
     },
   },

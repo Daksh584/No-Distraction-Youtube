@@ -30,6 +30,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/notion', notionRoutes);
 app.use('/api/rooms', roomRoutes);
 app.use('/api/history', require('./routes/history'));
+app.use('/api/transcript', require('./routes/transcript'));
 
 // Health check
 app.get('/api/health', (req, res) => {

@@ -5,6 +5,7 @@ import YouTube from "react-youtube";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import type { YouTubePlaylistItem } from "@/types";
+import { getYouTubeApiKey } from "@/utils/apiKey";
 
 interface VideoPlayerProps {
   videoId: string;
@@ -30,7 +31,7 @@ export default function VideoPlayer({ videoId, playlistId, title, channelTitle, 
 
   useEffect(() => {
     const fetchPlaylistItems = async () => {
-      const apiKey = process.env.NEXT_PUBLIC_YT_KEY;
+      const apiKey = getYouTubeApiKey();
       setIsLoading(true);
 
       try {

@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import SearchBar from "@/components/SearchBar";
 import type { YouTubePlaylistItem } from "@/types";
+import { getYouTubeApiKey } from "@/utils/apiKey";
 
 export default function PlaylistPage() {
   const params = useParams();
@@ -16,7 +17,7 @@ export default function PlaylistPage() {
 
   useEffect(() => {
     const fetchPlaylistItems = async () => {
-      const apiKey = process.env.NEXT_PUBLIC_YT_KEY;
+      const apiKey = getYouTubeApiKey();
       setIsLoading(true);
 
       try {

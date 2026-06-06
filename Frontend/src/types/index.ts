@@ -33,6 +33,11 @@ export interface YouTubeSearchItem {
       };
     };
   };
+  durationMinutes?: number;
+  categoryId?: string;
+  educationalScore?: number;
+  likeCount?: number;
+  viewCount?: number;
 }
 
 export interface YouTubePlaylistItem {

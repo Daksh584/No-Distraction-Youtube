@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: edutube-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./Frontend/.env.local
+    depends_on:
+      - backend-server
+    networks:
+      - edutube-network
+
+  backend-server:
+    build:
+      context: ./Backend/server
+      dockerfile: Dockerfile
+    container_name: edutube-backend
+    ports:
+      - "5001:5001"
+    env_file:
+      - ./Backend/server/.env
+    networks:
+      - edutube-network
+
+
+
+networks:
+  edutube-network:
+    driver: bridge

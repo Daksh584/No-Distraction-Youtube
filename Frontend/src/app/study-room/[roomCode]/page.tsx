@@ -6,6 +6,7 @@ import axios from "axios";
 import { useSocket } from "@/hooks/useSocket";
 import SyncedVideoPlayer from "@/components/SyncedVideoPlayer";
 import RoomChat from "@/components/RoomChat";
+import { getYouTubeApiKey } from "@/utils/apiKey";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
 
@@ -83,7 +84,7 @@ export default function StudyRoomPage() {
 
     // Fetch Title if empty
     const fetchVideoDetails = async () => {
-      const apiKey = process.env.NEXT_PUBLIC_YT_KEY;
+      const apiKey = getYouTubeApiKey();
       if (!apiKey || videoTitle) return;
 
       try {
@@ -129,8 +130,8 @@ export default function StudyRoomPage() {
 
     const fetchTranscript = async () => {
       try {
-        const FLASK_URL = process.env.NEXT_PUBLIC_FLASK_API_URL || "http://localhost:5002";
-        const response = await axios.get(`${FLASK_URL}/${videoId}`);
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
+        const response = await axios.get(`${API_URL}/api/transcript/${videoId}`);
         if (response.data && !response.data.error) {
           const transcriptText = response.data
             .map((item: any) => item.text)

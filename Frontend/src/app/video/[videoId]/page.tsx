@@ -8,6 +8,7 @@ import Chatbot from "@/components/Chatbot";
 import NotionNotes from "@/components/NotionNotes";
 import SidePanel from "@/components/SidePanel";
 import type { TranscriptSegment } from "@/types";
+import { getYouTubeApiKey } from "@/utils/apiKey";
 
 export default function VideoPage() {
   const params = useParams();
@@ -27,7 +28,7 @@ export default function VideoPage() {
   // Fetch video title using API key
   useEffect(() => {
     const fetchVideoDetails = async () => {
-      const apiKey = process.env.NEXT_PUBLIC_YT_KEY;
+      const apiKey = getYouTubeApiKey();
 
       try {
         const titleResponse = await axios.get(
@@ -74,8 +75,8 @@ export default function VideoPage() {
   useEffect(() => {
     const fetchTranscript = async () => {
       try {
-        const FLASK_URL = process.env.NEXT_PUBLIC_FLASK_API_URL || "http://localhost:5002";
-        const response = await axios.get(`${FLASK_URL}/${videoId}`);
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
+        const response = await axios.get(`${API_URL}/api/transcript/${videoId}`);
         if (response.data && !response.data.error) {
           const transcriptText = response.data
             .map((item: TranscriptSegment) => item.text)
